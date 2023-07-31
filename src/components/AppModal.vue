@@ -2,7 +2,7 @@
   <div class="modal-backdrop">
     <div class="modal">
       <h2>
-        Your reaction time is <span>{{ reactionTime }}</span> ms
+        Your reaction time is <br> <span>{{ reactionTime / 1000 }}</span> seconds
       </h2>
       <p>{{ category }}</p>
       <button @click="$emit('startAgain')">Try Again</button>
