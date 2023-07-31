@@ -1,4 +1,4 @@
-# quick-vue
+# reflex-tracker
 
 ## Project setup
 ```
