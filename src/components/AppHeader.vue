@@ -11,7 +11,7 @@
 <style scoped>
 header {
   text-align: center;
-  padding: 3rem 1rem;
+  padding: 5rem 1rem 3rem;
   max-width: 550px;
   margin: 0 auto;
 }

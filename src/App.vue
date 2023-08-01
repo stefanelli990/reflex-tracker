@@ -79,9 +79,9 @@ export default {
   },
   computed: {
     categoryText() {
-      if (this.clickTime > 500 && this.clickTime < 1000) {
+      if (this.clickTime < 1000) {
         return "Wow, your reaction time is really quick! Keep practicing to get even faster!";
-      } else if (this.clickTime > 1000 && this.clickTime < 2000) {
+      } else if (this.clickTime >= 1000 && this.clickTime <= 2000) {
         return "You have a decent reaction time, but there's room for improvement. Keep practicing regularly!";
       } else {
         return "Your reaction time is on the slower side. No worries, practice regularly, and you'll see improvements!";
@@ -129,7 +129,7 @@ button {
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: calc(100vh - 234px);
+  min-height: calc(100vh - 266px);
   padding: 1rem;
 }
 .circle {
