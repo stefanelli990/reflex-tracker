@@ -129,7 +129,7 @@ button {
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: calc(100vh - 266px);
+  min-height: calc(100vh - 250px);
   padding: 1rem;
 }
 .circle {
