@@ -1,5 +1,5 @@
 <template>
-    <div class="circle" @click="$emit('click-timer')"></div>
+    <div class="bg-primaryColor h-[100px] w-[100px] rounded-full cursor-pointer" @click="$emit('click-timer')"></div>
 </template>
 
 <script>
@@ -7,7 +7,3 @@
         emits: ['click-timer']
     }
 </script>
-
-<style scoped>
-
-</style>

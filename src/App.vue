@@ -1,12 +1,8 @@
 <template>
   <AppHeader />
-  <!-- <AppContainer/> -->
-  <button v-if="btnVisible" @click="startReact">Click to start</button>
+  <AppBtn v-if="btnVisible" @click="startReact" caption="Click to start"/>
   <p v-else-if="!btnVisible && !clickDivVisible">Get ready...</p>
-  <div v-else-if="clickDivVisible" class="circle-wrapper" :style="flexOption">
-    <AppCircle @click-timer="clickTimer" />
-    <!-- <div class="circle" @click="clickTimer"></div> -->
-  </div>
+  <AppCircleContainer v-else-if="clickDivVisible" :flexClass="flexOption"/>
   <teleport to="body" v-if="isShownModal">
     <AppModal
       @startAgain="receiveEmit"
@@ -17,19 +13,21 @@
 </template>
 
 <script>
-import AppCircle from "./components/AppCircle.vue";
+import AppBtn from "./components/AppBtn.vue";
+import AppCircleContainer from "./components/AppCircleContainer.vue";
+
 import AppHeader from "./components/AppHeader.vue";
 import AppModal from "./components/AppModal.vue";
 
 export default {
   name: "App",
-  components: { AppHeader, AppModal, AppCircle },
+  components: { AppHeader, AppModal, AppBtn, AppCircleContainer },
   data() {
     return {
       clickDivVisible: false,
       btnVisible: true,
-      justifyContentOptions: ["flex-start", "center", "flex-end"],
-      alignItemsOptions: ["flex-start", "center", "flex-end"],
+      justifyContentOptions: ['justify-start', 'justify-center', 'justify-end'],
+      alignItemsOptions: ['items-start', 'items-center', 'items-end'],
       flexOption: {},
       startTime: null,
       clickTime: 0,
@@ -92,7 +90,7 @@ export default {
 </script>
 
 <style>
-@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700&display=swap");
+/* @import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700&display=swap");
 
 #app {
   text-align: center;
@@ -149,5 +147,5 @@ button {
   100% {
     box-shadow: 0 0 0 40px rgb(29, 163, 147, 0);
   }
-}
+} */
 </style>
