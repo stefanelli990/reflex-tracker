@@ -3,8 +3,8 @@
   <AppBtn v-if="appBtnIsVisible" @click="startReact" caption="Click to start" />
   <p class="text-xl" v-else-if="!appBtnIsVisible && !appCircleContainerIsVisible">Get ready...</p>
   <AppCircleContainer v-else-if="appCircleContainerIsVisible" :flexClass="flexOption"/>
-  <teleport to="body" v-if="modalIsVisible">
-    <AppModal
+    <teleport to="body" v-if="modalIsVisible">
+      <AppModal
       @start-again="startAgain"
       :reactionTime="clickTime"
       :category="categoryText"
@@ -13,6 +13,7 @@
 </template>
 
 <script>
+
 import AppBtn from "./components/AppBtn.vue";
 import AppHeader from "./components/AppHeader.vue";
 import AppModal from "./components/AppModal.vue";
@@ -89,4 +90,3 @@ export default {
   },
 };
 </script>
-
