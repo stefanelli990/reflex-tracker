@@ -1,11 +1,11 @@
 <template>
   <AppHeader />
-  <AppBtn v-if="btnVisible" @click="startReact" caption="Click to start"/>
-  <p v-else-if="!btnVisible && !clickDivVisible">Get ready...</p>
-  <AppCircleContainer v-else-if="clickDivVisible" :flexClass="flexOption"/>
-  <teleport to="body" v-if="isShownModal">
+  <AppBtn v-if="appBtnIsVisible" @click="startReact" caption="Click to start" />
+  <p class="text-xl" v-else-if="!appBtnIsVisible && !appCircleContainerIsVisible">Get ready...</p>
+  <AppCircleContainer v-else-if="appCircleContainerIsVisible" :flexClass="flexOption"/>
+  <teleport to="body" v-if="modalIsVisible">
     <AppModal
-      @startAgain="receiveEmit"
+      @start-again="startAgain"
       :reactionTime="clickTime"
       :category="categoryText"
     />
@@ -14,29 +14,33 @@
 
 <script>
 import AppBtn from "./components/AppBtn.vue";
-import AppCircleContainer from "./components/AppCircleContainer.vue";
-
 import AppHeader from "./components/AppHeader.vue";
 import AppModal from "./components/AppModal.vue";
+import AppCircleContainer from "./components/AppCircleContainer.vue";
 
 export default {
   name: "App",
-  components: { AppHeader, AppModal, AppBtn, AppCircleContainer },
+  components: { AppBtn, AppHeader, AppModal, AppCircleContainer },
+  provide() {
+    return {
+      clickTimer: this.clickTimer
+    }
+  },
   data() {
     return {
-      clickDivVisible: false,
-      btnVisible: true,
-      justifyContentOptions: ['justify-start', 'justify-center', 'justify-end'],
+      appCircleContainerIsVisible: false,
+      appBtnIsVisible: true,
+      justifyContentOptions: ['justify-start', 'justify-center','justify-end'],
       alignItemsOptions: ['items-start', 'items-center', 'items-end'],
-      flexOption: {},
+      flexOption: [],
       startTime: null,
       clickTime: 0,
-      isShownModal: false,
+      modalIsVisible: false,
     };
   },
   methods: {
     startReact() {
-      this.btnVisible = false;
+      this.appBtnIsVisible = false;
       const randomJustifyContent =
         this.justifyContentOptions[
           Math.floor(Math.random() * this.justifyContentOptions.length)
@@ -46,13 +50,10 @@ export default {
           Math.floor(Math.random() * this.alignItemsOptions.length)
         ];
 
-      console.log(randomJustifyContent, randomAlignItems);
-      this.flexOption = {
-        justifyContent: randomJustifyContent,
-        alignItems: randomAlignItems,
-      };
+      this.flexOption.push(randomJustifyContent,randomAlignItems)
+      
       setTimeout(() => {
-        this.clickDivVisible = true;
+        this.appCircleContainerIsVisible = true;
         this.startTimer();
       }, 4000);
     },
@@ -63,17 +64,17 @@ export default {
     },
     clickTimer() {
       clearInterval(this.startTime);
-      this.isShownModal = true;
+      this.modalIsVisible = true;
       console.log(this.clickTime);
     },
-    receiveEmit() {
-      console.log("start again");
-      this.isShownModal = !this.isShownModal;
+    startAgain() {
+      this.modalIsVisible = !this.modalIsVisible;
       this.startTime = null;
       this.clickTime = 0;
-      this.clickDivVisible = false;
-      this.btnVisible = true;
-    },
+      this.appCircleContainerIsVisible = false;
+      this.appBtnIsVisible = true;
+      this.flexOption = []
+    }
   },
   computed: {
     categoryText() {
@@ -89,63 +90,3 @@ export default {
 };
 </script>
 
-<style>
-/* @import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700&display=swap");
-
-#app {
-  text-align: center;
-}
-
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: "Montserrat", sans-serif;
-}
-
-body {
-  min-height: 100vh;
-  background: linear-gradient(180deg, #300f8e 0%, #0e0036 100%);
-  color: #fff;
-}
-
-p {
-  font-size: 1.25rem;
-  line-height: 130%;
-}
-
-button {
-  padding: 1rem;
-  cursor: pointer;
-  background-color: #1da393;
-  border: none;
-  border-radius: 0.5rem;
-  color: #fff;
-}
-
-.circle-wrapper {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: calc(100vh - 250px);
-  padding: 1rem;
-}
-.circle {
-  background-color: #1da393;
-  height: 100px;
-  width: 100px;
-  border-radius: 50%;
-  box-shadow: 0px 0px 1px 1px #0000001a;
-  cursor: pointer;
-  animation: pulse-animation 1s infinite;
-}
-
-@keyframes pulse-animation {
-  0% {
-    box-shadow: 0 0 0 0px rgb(29, 163, 147, 0.5);
-  }
-  100% {
-    box-shadow: 0 0 0 40px rgb(29, 163, 147, 0);
-  }
-} */
-</style>

@@ -1,5 +1,5 @@
 <template>
-    <div class="flex justify-center items-center min-h-screen p-4" :class="flexClass">
+    <div class="flex h-[calc(100vh-216px)] p-4" :class="flexClass">
         <AppCircle/>
     </div>
 </template>
@@ -11,8 +11,7 @@ export default {
     components: {
         AppCircle
     },
-    props: ['flexClass']
-    
+    props: ['flexClass'] 
 }
 
 </script>
